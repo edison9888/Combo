@@ -66,7 +66,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     [self getUUidForthis];
     //self.view.backgroundColor=[UIColor colorWithRed:248.0/255 green:247.0/255 blue:246.0/255 alpha:1];
-    self.view.backgroundColor=[UIColor colorWithRed:226.0/255 green:224.0/255 blue:219.0/255 alpha:1];
+    self.view.backgroundColor=[UIColor colorWithRed:252.0/255 green:244.0/255 blue:227.0/255 alpha:1];
     
     
     //******************************确定按钮************************************
@@ -143,7 +143,7 @@
     
     //******************************填写联系方式************************************
     if (self.temp==1) {
-        button =[[UIButton alloc]initWithFrame:CGRectMake(218 , 108 , 85 , 17 )];
+        button =[[UIButton alloc]initWithFrame:CGRectMake(218 , 102 , 85 , 17 )];
         [button addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor=[UIColor clearColor];
         [button setBackgroundImage:[UIImage imageNamed:@"mobilenuber"] forState:UIControlStateNormal];

@@ -42,6 +42,7 @@
 
 - (void)viewDidLoad
 {
+    self.title=@"设置";
     
     [super viewDidLoad];
     NSArray *paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

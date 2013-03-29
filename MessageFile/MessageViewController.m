@@ -201,6 +201,8 @@ int MessFlag=0;
 }
 - (void)viewDidLoad
 {
+    self.title=@"消息";
+    
     [super viewDidLoad];
     [self getUUidForthis];
     //UITableView
