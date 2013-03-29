@@ -278,23 +278,29 @@
 -(void)noOutParty
 {
     NSLog(@"联合创建人不能退出派对");
-    UIAlertView *soundAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你是联合创建人，不能退出活动" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    UIAlertView *soundAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你是联合创建人，不能退出活动" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [soundAlert show];
 }
 -(void)outParty
 {
     NSLog(@"非联合创建人退出派对");
-    numFlogLogout=1;
-    NSString* str=@"mac/party/IF00041";
-    NSString* strURL=globalURL(str);
-    NSURL *url=[NSURL URLWithString:strURL];
-    ASIFormDataRequest *rrequest =  [ASIFormDataRequest  requestWithURL:url];
-    [rrequest setPostValue:self.userUUid forKey: @"uuid"];
-    [rrequest setPostValue:self.p_id forKey: @"p_id"];
-    [rrequest setDelegate:self];
-    [rrequest startAsynchronous];
+    UIAlertView *soundAlert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确认退出派对？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    [soundAlert show];
+    
 }
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) {
+        numFlogLogout=1;
+        NSString* str=@"mac/party/IF00041";
+        NSString* strURL=globalURL(str);
+        NSURL *url=[NSURL URLWithString:strURL];
+        ASIFormDataRequest *rrequest =  [ASIFormDataRequest  requestWithURL:url];
+        [rrequest setPostValue:self.userUUid forKey: @"uuid"];
+        [rrequest setPostValue:self.p_id forKey: @"p_id"];
+        [rrequest setDelegate:self];
+        [rrequest startAsynchronous];
+    }
+}
 -(void)weaitJoinParty
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"正在等待创建者同意" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

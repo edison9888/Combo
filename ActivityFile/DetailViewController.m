@@ -11,6 +11,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "MapViewController.h"
+#import "SVProgressHUD.h"
 static NSString* P_type=@"activity";
 
 @interface DetailViewController (){
@@ -160,6 +161,8 @@ static NSString* P_type=@"activity";
 -(void)buttonClick:(UIButton *)btn
 {
     if (btn.tag==001) {
+        [SVProgressHUD show];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showJoin) userInfo:nil repeats:NO];
         NSLog(@"加入活动，需要上传,接口IF00026");
         NSString* str=@"mac/party/IF00026";
         NSString* strURL=globalURL(str);
@@ -184,7 +187,10 @@ static NSString* P_type=@"activity";
         [request startAsynchronous];
     }
     else
-    {   NSLog(@"退出已加入的活动，需要上传数据，接口IF00027");
+    {
+        [SVProgressHUD show];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showback) userInfo:nil repeats:NO];
+        NSLog(@"退出已加入的活动，需要上传数据，接口IF00027");
         NSString* str=@"mac/party/IF00027";
        
         NSString* url27=globalURL(str);
@@ -210,6 +216,14 @@ static NSString* P_type=@"activity";
     }
     
 }
+
+-(void)showJoin{
+    [SVProgressHUD dismissWithSuccess:@"成功加入"];
+}
+-(void)showback{
+    [SVProgressHUD dismissWithSuccess:@"已退出活动"];
+}
+
 
 -(void)buttonClickTwo:(UIButton *)btB
 {

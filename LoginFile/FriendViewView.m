@@ -256,6 +256,7 @@
     NSLog(@"快捷键，申请添加好友");
     NSLog(@"申请添加好友,接口IF00012");
     [SVProgressHUD show];
+    [self show];
 }
 
 -(void)show{

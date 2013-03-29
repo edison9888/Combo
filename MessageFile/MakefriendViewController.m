@@ -10,6 +10,7 @@
 #import "ASIFormDataRequest.h"
 #import "SDImageView+SDWebCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SVProgressHUD.h"
 @interface MakefriendViewController ()
 
 @end
@@ -265,34 +266,24 @@
 
 -(void)makeFriend:(id)sender
 {
-    //确认添加好友的界面
-    UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"确认添加此人为好友?" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-    [alert show];
-    
+    [SVProgressHUD show];
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(show) userInfo:nil repeats:NO];
 }
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex==1)
-    {
-        NSLog(@"确认");
-        NSLog(@"确认添加好友,需要确认添加好友的接口13:::");
-        NSString* str=@"mac/user/IF00013";
-        NSString* strURL=globalURL(str);
-        NSURL* url=[NSURL URLWithString:strURL];
-        ASIFormDataRequest *rrequest =  [ASIFormDataRequest  requestWithURL:url];
-        NSLog(@"确认添加好友：接口13：：：：%@,%@",self.userUUid,user_id);
-        [rrequest setPostValue:self.userUUid forKey: @"uuid"];
-        
-        [rrequest setPostValue:user_id forKey:@"user_id"];
-        
-        [rrequest startSynchronous];
-        //更改数据源
-        [self.delegate Frichangedatasource];
-        [self.navigationController popViewControllerAnimated:YES];
-        
-         
-    }
 
+-(void)show
+{
+    [SVProgressHUD dismissWithSuccess:@"发送好友申请"];
+    
+    NSLog(@"确认");
+    NSLog(@"添加好友，接口12+++自己id:%@好友id:%@",self.userUUid,user_id);
+    NSString* str=@"mac/user/IF00012";
+    NSString* strURL=globalURL(str);
+    NSURL* url=[NSURL URLWithString:strURL];
+    ASIFormDataRequest *rrequest =  [ASIFormDataRequest  requestWithURL:url];
+    [rrequest setPostValue:self.userUUid forKey: @"uuid"];
+    [rrequest setPostValue:user_id forKey:@"user_id"];
+    [rrequest startSynchronous];
+    
 }
 
 -(void)getUUidForthis

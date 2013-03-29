@@ -1348,47 +1348,47 @@ int MessFlag=0;
     selectRow=indexPath.row;
     NSLog(@"selectRow==============%d",selectRow);
     
-    //这里加入自己的逻辑
-    UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"确认发送消息?" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-    [alert show];
+    
+    [self sendDate];
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+-(void)sendDate
 {
-    if (buttonIndex==1) {
-        NSLog(@"确认");
-        NSDictionary* dict=[self.message objectAtIndex:selectRow];
-        NSString* party_id=[dict objectForKey:@"P_ID"];
-        NSString *senderTo=[dict objectForKey:@"SENDER_ID"];
+    NSLog(@"确认");
+    NSDictionary* dict=[self.message objectAtIndex:selectRow];
+    NSString* party_id=[dict objectForKey:@"P_ID"];
+    NSString *senderTo=[dict objectForKey:@"SENDER_ID"];
+    
+    if (sendDate==1) {
         
-        if (sendDate==1) {
-            
-            NSString* str=@"mac/party/IF00054";
-            NSString* strURL=globalURL(str);
-            NSURL* url=[NSURL URLWithString:strURL];
-            ASIFormDataRequest *request =  [ASIFormDataRequest  requestWithURL:url];
-            [request setPostValue:senderTo forKey: @"user_id"];
-            
-            NSLog(@"self.senderTo======%@",senderTo);
-            
-            [request setPostValue:party_id forKey:@"p_id"];            //[request setDelegate:self];
-            [request startSynchronous];
-        }
-        else if(sendDate==2){
-            
-            [SVProgressHUD show];
-            [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showParty) userInfo:nil repeats:NO];
-            
-            
-            NSString* str=@"mac/party/IF00053";
-            NSString* strURL=globalURL(str);
-            NSURL* url=[NSURL URLWithString:strURL];
-            ASIFormDataRequest *request =  [ASIFormDataRequest  requestWithURL:url];
-            [request setPostValue:self.userUUid forKey: @"uuid"];
-            [request setPostValue:party_id forKey:@"p_id"];
-            //[request setDelegate:self];
-            [request startSynchronous];
-        }
+        [SVProgressHUD show];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showFriend) userInfo:nil repeats:NO];
+        
+        NSString* str=@"mac/party/IF00054";
+        NSString* strURL=globalURL(str);
+        NSURL* url=[NSURL URLWithString:strURL];
+        ASIFormDataRequest *request =  [ASIFormDataRequest  requestWithURL:url];
+        [request setPostValue:senderTo forKey: @"user_id"];
+        
+        NSLog(@"self.senderTo======%@",senderTo);
+        
+        [request setPostValue:party_id forKey:@"p_id"];            //[request setDelegate:self];
+        [request startSynchronous];
+    }
+    else if(sendDate==2){
+        
+        [SVProgressHUD show];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showParty) userInfo:nil repeats:NO];
+        
+        
+        NSString* str=@"mac/party/IF00053";
+        NSString* strURL=globalURL(str);
+        NSURL* url=[NSURL URLWithString:strURL];
+        ASIFormDataRequest *request =  [ASIFormDataRequest  requestWithURL:url];
+        [request setPostValue:self.userUUid forKey: @"uuid"];
+        [request setPostValue:party_id forKey:@"p_id"];
+        //[request setDelegate:self];
+        [request startSynchronous];
     }
     NSString* str=[NSString stringWithFormat:@"mac/party/IF00050?uuid=%@&&m_type=party&&from=%d&&to=%d",userUUid,1,[self.message count]];
     NSString *stringUrl=globalURL(str);
