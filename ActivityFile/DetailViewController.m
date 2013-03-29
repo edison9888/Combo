@@ -274,7 +274,7 @@ static NSString* P_type=@"activity";
         
         Actitle=[[UILabel alloc]initWithFrame:CGRectMake(139, 27, 160, 16)];
         Actitle.textColor=[UIColor colorWithRed:83.0/255 green:83.0/255 blue:83.0/255 alpha:1];
-        Actitle.font=[UIFont fontWithName:@"Helvetica-Bold" size:15];
+        Actitle.font=[UIFont fontWithName:@"Helvetica-Bold" size:19];
         Actitle.shadowColor=[UIColor colorWithRed:115.0/255 green:151.0/255 blue:155.0/255 alpha:1];
         Actitle.shadowOffset=CGSizeMake(2.0, 2.0);
         Actitle.backgroundColor=[UIColor clearColor];
@@ -331,7 +331,7 @@ static NSString* P_type=@"activity";
             [views removeFromSuperview];
         }
         cell.backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ACT2"]];
-        Acaddr=[[UITextView alloc]initWithFrame:CGRectMake(25, 4,100, 56)];
+        Acaddr=[[UITextView alloc]initWithFrame:CGRectMake(25, 11,100, 56)];
         Acaddr.font=[UIFont fontWithName:@"Helvetica-Bold" size:14];
         Acaddr.textColor=[UIColor colorWithRed:99.0/255 green:99.0/255 blue:99.0/255 alpha:1];
         Acaddr.backgroundColor=[UIColor clearColor];

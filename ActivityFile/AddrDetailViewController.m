@@ -49,9 +49,9 @@
 {
     [super viewDidLoad];
     [self getUUidForthis];
+    self.title=@"地点信息";
     changePicview=[[UIImageView alloc]init];
     changePicview.backgroundColor=[UIColor blackColor];
-	self.title=@"地点信息";
     tableview =[[UITableView alloc]initWithFrame:mainscreen style:UITableViewStylePlain];
     tableview.delegate=self;
     tableview.dataSource=self;
@@ -185,7 +185,7 @@
             [views removeFromSuperview];
         }
         cell.backgroundView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LOC2"]];
-        Acaddr=[[UITextView alloc]initWithFrame:CGRectMake(25, -4,100, 50)];
+        Acaddr=[[UITextView alloc]initWithFrame:CGRectMake(25, 10,100, 50)];
         Acaddr.font=[UIFont fontWithName:@"Helvetica-Bold" size:14];
         Acaddr.textColor=[UIColor colorWithRed:99.0/255 green:99.0/255 blue:99.0/255 alpha:1];
        
