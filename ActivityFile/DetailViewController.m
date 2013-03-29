@@ -221,21 +221,22 @@ static NSString* P_type=@"activity";
     NSLog(@"P_type:%@",P_type);
     
     NSLog(@"跳到地图");
+    //从集合跳入地图，直接定位到地图
     mapControl=[[MapViewController alloc]init];
+    double lat=[[dict objectForKey:@"C_LAT"]doubleValue];
+    double lng=[[dict objectForKey:@"C_LNG"]doubleValue];
+    NSLog(@"%lf,%lf",lat,lng);
+    if ((lat>-90)&&(lat<90)) {
+        [mapControl initWithlat:lat andlng:lng];
+    }
     mapControl.title=@"创建派对地点";
-    mapControl.type=@"1";
+    mapControl.type=@"2";
+
     mapControl.map_Temp=1;
     mapControl.c_id=self.C_id;
     mapControl.c_title=self.C_title;
     [self.navigationController pushViewController:mapControl animated:YES];
     
-    
-//    creatParty=[[CreatPartyViewController alloc]init];
-//    creatParty.title=@"创建party";
-//    creatParty.from_P_type=@"2";
-//    creatParty.from_C_title=self.C_title;
-//    creatParty.from_C_id=self.C_id;
-//    [self.navigationController pushViewController:creatParty animated:YES];
     //*******************************创建 party end********************************
 }
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

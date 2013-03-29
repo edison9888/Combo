@@ -407,20 +407,19 @@
 {
     btB.selected=!btB.selected;
     //*******************************创建 party********************************
-//    NSLog(@"C_title:%@",C_title);
-//    NSLog(@"C_id:%@",self.C_id);
-//    creatParty=[[CreatPartyViewController alloc]init];
-//    creatParty.title=@"创建party";
-//    creatParty.from_C_title=C_title;
-//    creatParty.from_C_id=C_id;
-//    creatParty.from_P_type=@"3";
-//    self.hidesBottomBarWhenPushed=YES;
-//    [self.navigationController pushViewController:creatParty animated:YES];
     
     NSLog(@"跳到地图");
+    //从集合跳入地图，直接定位到地图
     mapControl=[[MapViewController alloc]init];
+    double lat=[[dict objectForKey:@"C_LAT"]doubleValue];
+    double lng=[[dict objectForKey:@"C_LNG"]doubleValue];
+    NSLog(@"%lf,%lf",lat,lng);
+    if ((lat>-90)&&(lat<90)) {
+        [mapControl initWithlat:lat andlng:lng];
+    }
+    
     mapControl.title=@"创建派对地点";
-    mapControl.type=@"1";
+    mapControl.type=@"3";
     mapControl.map_Temp=1;
     mapControl.c_id=self.C_id;
     mapControl.c_title=self.C_title;

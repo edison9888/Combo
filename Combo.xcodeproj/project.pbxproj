@@ -911,10 +911,10 @@
 		DCADE06716FDA440007F832A /* friendinfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCADE06316FDA440007F832A /* friendinfoViewController.m */; };
 		DCADE06A16FDA459007F832A /* MakefriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCADE06916FDA459007F832A /* MakefriendViewController.m */; };
 		DCADE06B16FDA459007F832A /* MakefriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCADE06916FDA459007F832A /* MakefriendViewController.m */; };
-		DCB09D0B170521DC00FCB47A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB09D0A170521DC00FCB47A /* MapViewController.m */; };
-		DCB09D0C170521DC00FCB47A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB09D0A170521DC00FCB47A /* MapViewController.m */; };
 		DCB5CF0016F9505100CA3B9C /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB5CEF716F9505100CA3B9C /* WelcomeViewController.m */; };
 		DCB5CF0116F9505100CA3B9C /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB5CEF716F9505100CA3B9C /* WelcomeViewController.m */; };
+		DCBAA4E11705484E000D40E6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBAA4E01705484E000D40E6 /* MapViewController.m */; };
+		DCBAA4E21705484E000D40E6 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCBAA4E01705484E000D40E6 /* MapViewController.m */; };
 		DCCD9B7116FFFDA9003B9D75 /* MyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCD9B7016FFFDA9003B9D75 /* MyDetailViewController.m */; };
 		DCCD9B7216FFFDA9003B9D75 /* MyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCD9B7016FFFDA9003B9D75 /* MyDetailViewController.m */; };
 		DCF98A8617052993008459E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DFD443616F852DA00C3CAF7 /* UIKit.framework */; };
@@ -1488,10 +1488,10 @@
 		DCADE06316FDA440007F832A /* friendinfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = friendinfoViewController.m; sourceTree = "<group>"; };
 		DCADE06816FDA459007F832A /* MakefriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MakefriendViewController.h; sourceTree = "<group>"; };
 		DCADE06916FDA459007F832A /* MakefriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MakefriendViewController.m; sourceTree = "<group>"; };
-		DCB09D09170521DC00FCB47A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		DCB09D0A170521DC00FCB47A /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DCB5CEF616F9505100CA3B9C /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		DCB5CEF716F9505100CA3B9C /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		DCBAA4DF1705484E000D40E6 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		DCBAA4E01705484E000D40E6 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DCCD9B6F16FFFDA9003B9D75 /* MyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDetailViewController.h; sourceTree = "<group>"; };
 		DCCD9B7016FFFDA9003B9D75 /* MyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2036,8 +2036,8 @@
 				DC86277A1700380C00AF615C /* CustomAnnotation.h */,
 				DC86277B1700380C00AF615C /* CustomAnnotation.m */,
 				DC86277C1700380C00AF615C /* SelectCheck@2x.png */,
-				DCB09D09170521DC00FCB47A /* MapViewController.h */,
-				DCB09D0A170521DC00FCB47A /* MapViewController.m */,
+				DCBAA4DF1705484E000D40E6 /* MapViewController.h */,
+				DCBAA4E01705484E000D40E6 /* MapViewController.m */,
 				DC86277F1700380C00AF615C /* CreatBeforeViewController.h */,
 				DC8627801700380C00AF615C /* CreatBeforeViewController.m */,
 				DC8627F6170040A100AF615C /* InvitViewController.h */,
@@ -3314,7 +3314,7 @@
 				DCA24D041701AE5400BB9F47 /* ActiveViewController.m in Sources */,
 				DCA24D321701AE8300BB9F47 /* AddrDetailViewController.m in Sources */,
 				5289F83A170465090020A764 /* SVProgressHUD.m in Sources */,
-				DCB09D0B170521DC00FCB47A /* MapViewController.m in Sources */,
+				DCBAA4E11705484E000D40E6 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3400,7 +3400,7 @@
 				DCA24D051701AE5400BB9F47 /* ActiveViewController.m in Sources */,
 				DCA24D331701AE8300BB9F47 /* AddrDetailViewController.m in Sources */,
 				5289F83B170465090020A764 /* SVProgressHUD.m in Sources */,
-				DCB09D0C170521DC00FCB47A /* MapViewController.m in Sources */,
+				DCBAA4E21705484E000D40E6 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

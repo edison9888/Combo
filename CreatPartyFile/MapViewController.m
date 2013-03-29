@@ -23,7 +23,7 @@ int flag=0;
 @synthesize map_Temp;
 @synthesize city;
 @synthesize local;
-@synthesize Collectflag;
+
 @synthesize map;
 @synthesize geocoder;
 @synthesize type;
@@ -34,14 +34,23 @@ int flag=0;
     if (self) {
         // Custom initialization
         self.title=@"派对地点";
+        Collectflag=0;
     }
     return self;
 }
+
+-(void)initWithlat:(double)clat andlng:(double)clng
+{
+    Collectflag=1;
+    lat=clat;
+    lng=clng;
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.hidesBackButton=YES;
     UIButton* backbutton=[UIButton  buttonWithType:UIButtonTypeCustom];
-    backbutton.frame=CGRectMake(0.0, 0.0, 40, 35);
+    backbutton.frame=CGRectMake(0.0, 0.0, 36, 29);
     [backbutton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [backbutton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     
@@ -68,6 +77,14 @@ int flag=0;
     self.map.delegate=self;
     
     [self.view addSubview:self.map];
+    
+    if (Collectflag==1) {
+        float zoomLevel = 0.02;
+        MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat, lng),MKCoordinateSpanMake(zoomLevel, zoomLevel));
+        [self.map setRegion:[self.map regionThatFits:region] animated:YES];
+        [self MakeAnnotation];
+    }
+
     UILongPressGestureRecognizer *lpress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
     lpress.minimumPressDuration = 0.5;//按0.5秒作为响应longPress方法
     [map addGestureRecognizer:lpress];//m_mapView是MKMapView的实例
@@ -95,13 +112,12 @@ int flag=0;
     label.text=@"";
     [self.view addSubview:label];
     [super viewDidLoad];
-    
 }
+
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     //map的userlocation在这个方法里才开始获得
    NSLog(@"自己的位置::::%f,%f",map.userLocation.coordinate.latitude,map.userLocation.coordinate.longitude);
-
     if ((flag==0)&&(Collectflag!=1)) {
         float zoomLevel = 0.02;
         MKCoordinateRegion region = MKCoordinateRegionMake(map.userLocation.coordinate,MKCoordinateSpanMake(zoomLevel, zoomLevel));
@@ -139,7 +155,6 @@ int flag=0;
     rightButton.frame=CGRectMake(0, 0, 48 , 30);
     [rightButton addTarget:self action:@selector(showDetails) forControlEvents:UIControlEventTouchUpInside];
     
-    //pinView.rightCalloutAccessoryView = rightButton;
     pinView.leftCalloutAccessoryView=rightButton;
    
     return pinView;
@@ -151,37 +166,7 @@ int flag=0;
     UITextField* searchField=[[searchBar subviews] lastObject];
     [searchField resignFirstResponder];
     [NSThread detachNewThreadSelector:@selector(searchPlace) toTarget:self withObject:nil];
-    //[self searchPlace:searchBar];
-    
-}
-
--(void)requestFinished:(ASIHTTPRequest *)request
-{
-    NSData* response=[request responseData];
-    //NSLog(@"%@",response);
-    NSError* error;
-    NSDictionary* bizDic=[NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-    NSLog(@"%@",bizDic);
-    NSArray* dictArray=[bizDic objectForKey:@"results"];
-    NSDictionary* arrDict=[dictArray objectAtIndex:0];
-    NSDictionary* geometry=[arrDict objectForKey:@"geometry"];
-    NSLog(@"%@",geometry);
-    NSDictionary* dict=[geometry objectForKey:@"location"];
-    NSLog(@"%@",dict);
-    lat=[[dict objectForKey:@"lat"]doubleValue];
-
-    lng=[[dict objectForKey:@"lng"]doubleValue];
-    NSLog(@"%lf  %lf",lat,lng);
-    
-    NSLog(@"搜索地图解析出来的经纬度：：：%f,%f",lat,lng);
-    float zoomLevel = 0.02;
-    //NSLog(@"%f,%f",map.userLocation.coordinate.latitude,map.userLocation.coordinate.longitude);
-    MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(lat, lng),MKCoordinateSpanMake(zoomLevel, zoomLevel));
-    [map setRegion:[map regionThatFits:region] animated:YES];
-    
-    [self MakeAnnotation];
-
-
+       
 }
 
 
@@ -189,16 +174,41 @@ int flag=0;
 {
     UITextField* searchField=[[mySearchBar subviews] lastObject];
     NSLog(@"%@",searchField.text);
-    NSString *urlStr = [[NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?address=%@&sensor=true",searchField.text] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"%@",urlStr);
-    NSURL* url=[NSURL URLWithString:urlStr];
-    ASIHTTPRequest* request=[ASIHTTPRequest requestWithURL:url];
-    [request setDelegate:self];
-    request.shouldAttemptPersistentConnection = NO;
-    [request setValidatesSecureCertificate:NO];
-    [request setDefaultResponseEncoding:NSUTF8StringEncoding];
-    //[request setDidFailSelector:@selector(requestDidFailed:)];
-    [request startAsynchronous];
+    if (geocoder==nil) {
+        geocoder =[[CLGeocoder alloc]init];
+    }
+    [geocoder geocodeAddressString:searchField.text completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         NSLog(@"%@",placemarks);
+         NSLog(@"error %@ placemarks count %d",error.localizedDescription,placemarks.count);
+         if (error) {
+             UIAlertView* alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"您输入的位置未能找到，请重新输入" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+             [alert show];
+         }
+         else
+         {
+             for (CLPlacemark *placeMark in placemarks)
+             {
+                 NSLog(@"%@",placeMark.location);
+                 MKCoordinateRegion region = MKCoordinateRegionMake(placeMark.location.coordinate,MKCoordinateSpanMake(0.01, 0.01));
+                 [map setRegion:[map regionThatFits:region] animated:YES];
+                 label.text=searchField.text;
+                 CustomAnnotation* pointAnnotation = nil;
+                 pointAnnotation = [[CustomAnnotation alloc] init];
+                 pointAnnotation.coordinate = placeMark.location.coordinate;
+                 pointAnnotation.title=@" ";
+                 [map removeAnnotations:self.map.annotations];
+                 [map addAnnotation:pointAnnotation];
+             }
+         }
+         
+         
+     }];
+    
+
+    
+    
+    
 }
 - (void)showDetails
 {
@@ -246,7 +256,11 @@ int flag=0;
     pointAnnotation = [[CustomAnnotation alloc] init];
     pointAnnotation.coordinate = CLLocationCoordinate2DMake(lat, lng);
     CLLocation* location=[[CLLocation alloc]initWithLatitude:lat longitude:lng];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+
+    if (geocoder==nil) {
+        geocoder =[[CLGeocoder alloc]init];
+    }
+   [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark* placemark=[placemarks objectAtIndex:0];
         if (placemark==nil) {
             NSLog(@"null");
@@ -289,12 +303,6 @@ int flag=0;
     // Dispose of any resources that can be recreated.
 }
 
--(void)initWithlat:(double)clat andlng:(double)clng
-{
-    lat=clat;
-    lng=clng;
-    self.Collectflag=1;
-}
 -(void)back
 {
     

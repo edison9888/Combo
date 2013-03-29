@@ -40,7 +40,6 @@
     NSString *c_title;
 }
 
-@property int Collectflag;
 @property (nonatomic,retain) NSString *c_id;
 @property (nonatomic,retain) NSString *c_title;
 @property int map_Temp;
@@ -54,6 +53,9 @@
 
 - (void)longPress:(UIGestureRecognizer*)gestureRecognizer;
 - (void)showDetails;
+
 - (void) initWithlat:(double)clat andlng:(double)clng;
+
+
 
 @end
